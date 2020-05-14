@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../cnode.svg';
+import logo from '../../asset/images/cnode.svg';
 import './index.scss';
 import { Link } from 'react-router-dom';
 
