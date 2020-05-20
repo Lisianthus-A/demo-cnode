@@ -10,13 +10,13 @@ class App extends React.Component {
     return (
       <HashRouter>
         <Header />
-          <Switch>
-            <Route exact path='/' component={Main} />
-            <Route exact path='/post' component={() => <Redirect to='/' />} />
-            <Route exact path='/user' component={() => <Redirect to='/' />} />
-            <Route path='/post/:id' component={Post} />
-            <Route path='/user/:name' component={User} />
-          </Switch>
+        <Switch>
+          <Route exact path='/' component={Main} />
+          <Route exact path='/post' component={() => <Redirect to='/' />} />
+          <Route exact path='/user' component={() => <Redirect to='/' />} />
+          <Route path='/post/:id' component={Post} />
+          <Route path='/user/:name' component={User} />
+        </Switch>
       </HashRouter>
     );
   }

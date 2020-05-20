@@ -18,8 +18,8 @@ class Header extends React.Component {
                 </div>
                 <div className="navbar">
                     <Link to='/'>首页</Link>
-                    <a href='https://cnodejs.org/getstart' target='_blank'>新手入门</a>
-                    <a href='https://cnodejs.org/api' target='_black'>API</a>
+                    <a href='https://cnodejs.org/getstart' target='_blank' rel="noopener noreferrer" >新手入门</a>
+                    <a href='https://cnodejs.org/api' target='_black' rel="noopener noreferrer">API</a>
                     <a href='/' onClick={this.handleAbout}>关于</a>
                 </div>
             </div>
