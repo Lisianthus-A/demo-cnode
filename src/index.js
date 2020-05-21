@@ -3,17 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducer from './redux/reducer';
+import thunk from './redux/thunk';
 
-const initialState = {
-    tab: 'all',
-    page: 1,
-    data: []
-};
-
-let store = createStore(reducer, initialState);
-
+let store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+);
 
 ReactDOM.render(
     <Provider store={store}>

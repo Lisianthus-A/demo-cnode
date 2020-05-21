@@ -1,39 +1,49 @@
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-import * as testImg from '../../asset/images/testImg.jpg';
-import Loading from '../Loading';
+import { connect } from 'react-redux';
+import { mapStateToProps_main, mapDispatchToState_main } from '../../redux/map';
+import ListItem from './ListItem';
 
 class Main extends React.Component {
 
     componentDidMount = () => {
-        console.log(this.props);
+        this.props.getPost();
+    }
+
+    //切换标签
+    handleChangeTab = async (tab) => {
+        if (this.props.tab !== tab) {
+            this.props.changeTab(tab);
+            this.props.refreshData();
+            this.props.getPost(tab, this.props.page);
+        }
     }
 
     render() {
         return (
             <div className="main">
                 <div className="tab">
-                    <Link to='/' className="item high-light">全部</Link>
-                    <Link to='/' className="item">精华</Link>
-                    <Link to='/' className="item">分享</Link>
-                    <Link to='/' className="item">问答</Link>
-                    <Link to='/' className="item">招聘</Link>
+                    <Link
+                        className={`item${this.props.tab === 'all' ? ' high-light' : ''}`}
+                        onClick={() => this.handleChangeTab('all')}>全部</Link>
+                    <Link
+                        className={`item${this.props.tab === 'good' ? ' high-light' : ''}`}
+                        onClick={() => this.handleChangeTab('good')}>精华</Link>
+                    <Link
+                        className={`item${this.props.tab === 'share' ? ' high-light' : ''}`}
+                        onClick={() => this.handleChangeTab('share')}>分享</Link>
+                    <Link
+                        className={`item${this.props.tab === 'ask' ? ' high-light' : ''}`}
+                        onClick={() => this.handleChangeTab('ask')}>问答</Link>
+                    <Link
+                        className={`item${this.props.tab === 'job' ? ' high-light' : ''}`}
+                        onClick={() => this.handleChangeTab('job')}>招聘</Link>
                 </div>
-                <div className='list'>
-                    <div className='cell'>
-                        <img className='user-avatar' src={testImg} alt='testImg' />
-                        <span className='reply-count'>123</span>
-                        <span>/</span>
-                        <span className='visit-count'>10000</span>
-                        <span className='put-top'>置顶</span>
-                        <span className="title"><Link to='/' >Node.js 开发者调查问卷 [报告已出炉]sssssssssssss</Link></span>
-                        <span className='time'>3天前</span>
-                    </div>
-                </div>
+                <ListItem data={this.props.data} />
             </div>
         );
     }
 }
 
-export default Main;
+export default connect(mapStateToProps_main, mapDispatchToState_main)(Main);

@@ -5,15 +5,31 @@ export const changeTab = (tab) => ({
 });
 
 //获取文章
-export const getPost = (id) => ({
-    type: 'GET_POST',
-    id
-});
+export const getPost = (tab = 'all', page = 1) => {
+    return async function (dispatch) {
+        let url = 'https://cnodejs.org/api/v1/topics?limit=20';
+        if (page !== 1) {
+            url += `&page=${page}`
+        }
+        if (tab !== 'all') {
+            url += `&tab=${tab}`
+        }
+        return fetch(url)
+            .then(res => res.json())
+            .then(res => dispatch({ type: 'GET_POST', data: res.data }))
+            .catch(() => alert('数据加载失败'));
+    }
+};
 
 //获取用户信息
-export const getUser = (userid) => ({
+export const getUser = async (userid) => ({
     type: 'GET_USER',
     userid
+});
+
+//重置数据
+export const refreshData = () => ({
+    type: 'REFRESH_DATA'
 });
 
 //下一页

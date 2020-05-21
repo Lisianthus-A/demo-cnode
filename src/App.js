@@ -6,6 +6,7 @@ import Post from './component/Post';
 import User from './component/User';
 
 class App extends React.Component {
+
   render() {
     return (
       <HashRouter>
