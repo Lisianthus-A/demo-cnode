@@ -1,11 +1,20 @@
-import { changeTab, getNextPage, getPrevPage, getPost, refreshData } from './actions';
+import { changeTab, getNextPage, getPrevPage, getPost, refreshData, getPostDetail, getUser } from './actions';
 
+//mapStateToProps
 export const mapStateToProps_main = (state, ownProps) => ({
     tab: state.tab,
     page: state.page,
     data: state.data
 });
 
+export const mapStateToProps_post = (state, ownProps) => ({
+    data: state.data,
+    userData: state.userData
+});
+
+
+
+//mapDispatchToState
 export const mapDispatchToState_main = (dispatch) => {
     return {
         changeTab: (tab) => {
@@ -24,4 +33,18 @@ export const mapDispatchToState_main = (dispatch) => {
             dispatch(getPrevPage());
         }
     }
+}
+
+export const mapDispatchToState_post = (dispatch) => {
+    return {
+        getPostDetail: (id) => {
+            dispatch(getPostDetail(id));
+        },
+        refreshData: () => {
+            dispatch(refreshData());
+        },
+        getUser: (name) => {
+            dispatch(getUser(name))
+        }
+    };
 }

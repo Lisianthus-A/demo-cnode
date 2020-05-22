@@ -1,7 +1,8 @@
 const initialState = {
     tab: 'all',
     page: 1,
-    data: []
+    data: [],
+    userData: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,11 +17,12 @@ const reducer = (state = initialState, action) => {
             });
         case 'GET_USER':  //获取用户信息
             return Object.assign({}, state, {
-                data: action.data
+                userData: action.data
             });
         case 'REFRESH_DATA':  //重置数据
             return Object.assign({}, state, {
-                data: []
+                data: [],
+                userData: []
             });
         case 'GET_NEXT_PAGE':  //下一页
             return Object.assign({}, state, {
@@ -29,6 +31,11 @@ const reducer = (state = initialState, action) => {
         case 'GET_PREV_PAGE':  //上一页
             return Object.assign({}, state, {
                 page: state.page - 1
+            });
+        case 'GET_POST_DETAIL': //获取文章详情
+            return Object.assign({}, state, {
+                data: action.data,
+                userData: action.userData
             });
         default:
             return state;

@@ -15,17 +15,18 @@ export const getPost = (tab = 'all', page = 1) => {
             url += `&tab=${tab}`
         }
         return fetch(url)
-            .then(res => res.json())
-            .then(res => dispatch({ type: 'GET_POST', data: res.data }))
+            .then(response => response.json())
+            .then(result => dispatch({ type: 'GET_POST', data: result.data }))
             .catch(() => alert('数据加载失败'));
     }
 };
 
 //获取用户信息
-export const getUser = async (userid) => ({
-    type: 'GET_USER',
-    userid
-});
+export const getUser = async (name) => {
+    return async function (dispatch) {
+
+    }
+};
 
 //重置数据
 export const refreshData = () => ({
@@ -41,3 +42,17 @@ export const getNextPage = () => ({
 export const getPrevPage = () => ({
     type: 'GET_PREV_PAGE'
 });
+
+export const getPostDetail = (id) => {
+    return async function (dispatch) {
+        let url = 'https://cnodejs.org/api/v1/topic/' + id;
+        return fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                fetch('https://cnodejs.org/api/v1/user/' + result.data.author.loginname)
+                    .then(res => res.json())
+                    .then(res => dispatch({ type: 'GET_POST_DETAIL', data: result.data, userData: res.data }))
+            })
+            .catch(() => alert('数据加载失败'));
+    }
+};

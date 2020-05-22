@@ -1,14 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss';
-import Loading from './Loading';
+import Loading from '../../Loading';
+import convert from '../../../utils/convertTime';
 
 class ListItem extends React.Component {
-
-    componentDidMount() {
-        //console.log(this.props.data);
-    }
-
     getText = (obj) => {
         if (obj.top) {
             return '置顶';
@@ -41,7 +37,9 @@ class ListItem extends React.Component {
                 <div className='list'>
                     {this.props.data.map(e =>
                         <div className='cell' key={e.id}>
-                            <img className='user-avatar' src={e.author.avatar_url} title={e.author.loginname} alt={e.author.loginname} />
+                            <a href={`/#/user/e.author.loginname`}>
+                                <img className='user-avatar' src={e.author.avatar_url} title={e.author.loginname} alt={e.author.loginname} />
+                            </a>
                             <div className='cell-left'>
                                 <span className='reply-count'>{e.reply_count}</span>
                                 <span>/</span>
@@ -49,7 +47,7 @@ class ListItem extends React.Component {
                             </div>
                             <span className={e.top || e.good ? 'put-top' : 'list-tab'}>{this.getText(e)}</span>
                             <span className='title'><Link to={`/post/${e.id}`}>{e.title}</Link></span>
-                            <span className='time'>3天前</span>
+                            <span className='time'>{convert(e.last_reply_at)}</span>
                         </div>)}
                 </div>
             </div>
