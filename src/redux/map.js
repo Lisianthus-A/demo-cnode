@@ -12,6 +12,10 @@ export const mapStateToProps_post = (state, ownProps) => ({
     userData: state.userData
 });
 
+export const mapStateToProps_user = (state, ownProps) => ({
+    userData: state.userData
+});
+
 
 
 //mapDispatchToState
@@ -40,6 +44,17 @@ export const mapDispatchToState_post = (dispatch) => {
         getPostDetail: (id) => {
             dispatch(getPostDetail(id));
         },
+        refreshData: () => {
+            dispatch(refreshData());
+        },
+        getUser: (name) => {
+            dispatch(getUser(name))
+        }
+    };
+}
+
+export const mapDispatchToState_user = (dispatch) => {
+    return {
         refreshData: () => {
             dispatch(refreshData());
         },

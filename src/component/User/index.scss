@@ -1,0 +1,65 @@
+.user {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 1rem;
+  .panel {
+    .panel-top {
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      color: #778087;
+      header {
+        background-color: #f6f6f6;
+        padding: 0.5rem;
+        color: #80bd01;
+      }
+      .info {
+        display: flex;
+        align-items: center;
+        padding: 0.7rem;
+        color: #80bd01;
+        img {
+          width: 40px;
+          height: 40px;
+          margin-right: 0.7rem;
+        }
+      }
+      .score,
+      .github,
+      .register-time {
+        padding: 0.7rem;
+        a {
+          color: #08c;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .panel-middle,
+    .panel-bottom {
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      margin: 1rem auto;
+      header {
+        background-color: #f6f6f6;
+        padding: 0.5rem;
+        color: #80bd01;
+      }
+      .list {
+        border-top: 1px solid #e5e5e5;
+        padding: 1rem 0.5rem;
+        position: relative;
+        .item {
+          padding: 0.2rem;
+          font-size: 15px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          a {
+            color: #08c;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

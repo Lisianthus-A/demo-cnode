@@ -12,7 +12,7 @@ class Main extends React.Component {
     }
 
     //切换标签
-    handleChangeTab = async (tab) => {
+    handleChangeTab = (tab) => {
         if (this.props.tab !== tab) {
             this.props.changeTab(tab);
             this.props.refreshData();
@@ -20,7 +20,24 @@ class Main extends React.Component {
         }
     }
 
+    //下一页
+    handleNextPage = async () => {
+        await this.props.getNextPage();
+        await this.props.refreshData();
+        await this.props.getPost(this.props.tab, this.props.page);
+    }
+
+    //上一页
+    handlePrevPage = async () => {
+        if (this.props.page !== 1) {
+            await this.props.getPrevPage();
+            await this.props.refreshData();
+            await this.props.getPost(this.props.tab, this.props.page);
+        }
+    }
+
     render() {
+        //console.log(this.props);
         return (
             <div className="main">
                 <div className="tab">
@@ -41,6 +58,11 @@ class Main extends React.Component {
                         onClick={() => this.handleChangeTab('job')}>招聘</Link>
                 </div>
                 <ListItem data={this.props.data} />
+                {this.props.data.length !== 0 ?
+                    <div className='page'>
+                        <button onClick={() => this.handlePrevPage()}>{`<<Prev`}</button>
+                        <button onClick={() => this.handleNextPage()}>{`Next>>`}</button>
+                    </div> : null}
             </div>
         );
     }

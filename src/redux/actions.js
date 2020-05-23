@@ -14,6 +14,7 @@ export const getPost = (tab = 'all', page = 1) => {
         if (tab !== 'all') {
             url += `&tab=${tab}`
         }
+        console.log(url);
         return fetch(url)
             .then(response => response.json())
             .then(result => dispatch({ type: 'GET_POST', data: result.data }))
@@ -22,9 +23,13 @@ export const getPost = (tab = 'all', page = 1) => {
 };
 
 //获取用户信息
-export const getUser = async (name) => {
+export const getUser = (name) => {
     return async function (dispatch) {
-
+        let url = 'https://cnodejs.org/api/v1/user/' + name;
+        return fetch(url)
+            .then(response => response.json())
+            .then(result => dispatch({type: 'GET_USER', data: result.data}))
+            .catch(() => alert('数据加载失败'));
     }
 };
 
