@@ -12,9 +12,9 @@ class Header extends React.Component {
         return (
             <div className='header'>
                 <div className='logo'>
-                    <a href='/'>
+                    <Link to='/'>
                         <img src={logo} alt='logo' />
-                    </a>
+                    </Link>
                 </div>
                 <div className="navbar">
                     <Link to='/'>首页</Link>
