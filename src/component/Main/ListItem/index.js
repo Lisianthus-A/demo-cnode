@@ -25,6 +25,7 @@ class ListItem extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         //等待数据加载
         if (this.props.data.length === 0) {
             return (

@@ -7,8 +7,9 @@ import ListItem from './ListItem';
 
 class Main extends React.Component {
 
-    componentDidMount = () => {
-        this.props.getPost();
+    componentDidMount = async () => {
+        await this.props.refreshData();
+        await this.props.getPost();
     }
 
     //切换标签
@@ -57,7 +58,7 @@ class Main extends React.Component {
                         className={`item${this.props.tab === 'job' ? ' high-light' : ''}`}
                         onClick={() => this.handleChangeTab('job')}>招聘</Link>
                 </div>
-                <ListItem data={this.props.data} />
+                {Array.isArray(this.props.data) ? <ListItem data={this.props.data} /> : null}
                 {this.props.data.length !== 0 ?
                     <div className='page'>
                         <button onClick={() => this.handlePrevPage()}>{`<<Prev`}</button>
