@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { mapStateToProps_post, mapDispatchToState_post } from '../../redux/map';
 import Loading from '../Loading';
 import convert from '../../utils/convertTime';
+import { Link } from 'react-router-dom';
 
 
 class Post extends React.Component {
@@ -24,7 +25,7 @@ class Post extends React.Component {
                         <div className='title'>{this.props.data.title}</div>
                         <div className='changes'>
                             <span>发布于{`${convert(this.props.data.create_at)}`}</span>
-                            <span><a href={`/#/user/${this.props.data.author.loginname}`}>作者{`${this.props.data.author.loginname}`}</a></span>
+                            <span><Link to={`/user/${this.props.data.author.loginname}`}>作者{`${this.props.data.author.loginname}`}</Link></span>
                             <span>{`${this.props.data.visit_count}`}次浏览</span>
                         </div>
                         <div className='content' dangerouslySetInnerHTML={{ __html: this.props.data.content }}></div>
@@ -35,8 +36,8 @@ class Post extends React.Component {
                         {this.props.data.replies.map(e =>
                             <div className='reply'>
                                 <div className='reply-author'>
-                                    <a href={`/#/user/${e.author.loginname}`}><img src={e.author.avatar_url} alt={`${e.author.loginname}`} /></a>
-                                    <a href={`/#/user/${e.author.loginname}`}>{`${e.author.loginname}`}</a>
+                                    <Link to={`/user/${e.author.loginname}`}><img src={e.author.avatar_url} alt={`${e.author.loginname}`} /></Link>
+                                    <Link to={`/user/${e.author.loginname}`}>{`${e.author.loginname}`}</Link>
                                     <span>{` 回复于${convert(e.create_at)}`}</span>
                                 </div>
                                 <div className='reply-content' dangerouslySetInnerHTML={{ __html: e.content }}></div>
@@ -49,10 +50,10 @@ class Post extends React.Component {
                         <div className='panel-top'>
                             <header>作者</header>
                             <div className='info'>
-                                <a href={`/#/user/${this.props.userData.loginname}`}>
+                                <Link to={`/user/${this.props.userData.loginname}`}>
                                     <img src={`${this.props.userData.avatar_url}`} alt={`${this.props.userData.loginname}`} />
                                     <span>{`${this.props.userData.loginname}`}</span>
-                                </a>
+                                </Link>
                             </div>
                             <div className='score'>{`积分：${this.props.userData.score}`}</div>
                             <div className='register-time'>{`注册时间：${convert(this.props.userData.create_at)}`}</div>
@@ -64,7 +65,7 @@ class Post extends React.Component {
 
                                 {this.props.userData.recent_topics.map(e =>
                                     <div className='item'>
-                                        <a href={`/#/post/${e.id}`}>{`${e.title}`}</a>
+                                        <Link href={`/post/${e.id}`}>{`${e.title}`}</Link>
                                     </div>)}
 
                             </div>

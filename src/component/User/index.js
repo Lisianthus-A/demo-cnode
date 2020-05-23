@@ -4,6 +4,7 @@ import { mapDispatchToState_user, mapStateToProps_user } from '../../redux/map';
 import { connect } from 'react-redux';
 import Loading from '../Loading';
 import convert from '../../utils/convertTime';
+import { Link } from 'react-router-dom';
 
 class User extends React.Component {
     componentDidMount() {
@@ -34,7 +35,7 @@ class User extends React.Component {
                         <div className='list'>
                             {this.props.userData.recent_replies.map(e =>
                                 <div className='item'>
-                                    <a href={`/#/post/${e.id}`}>{e.title}</a>
+                                    <Link to={`/post/${e.id}`}>{e.title}</Link>
                                 </div>)}
                         </div>
                     </div>
@@ -43,7 +44,7 @@ class User extends React.Component {
                         <div className='list'>
                             {this.props.userData.recent_topics.map(e =>
                                 <div className='item'>
-                                    <a href={`/#/post/${e.id}`}>{e.title}</a>
+                                    <Link to={`/post/${e.id}`}>{e.title}</Link>
                                 </div>)}
                         </div>
                     </div>

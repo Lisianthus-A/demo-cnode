@@ -37,9 +37,9 @@ class ListItem extends React.Component {
                 <div className='list'>
                     {this.props.data.map(e =>
                         <div className='cell' key={e.id}>
-                            <a href={`/#/user/e.author.loginname`}>
+                            <Link to={`/user/${e.author.loginname}`}>
                                 <img className='user-avatar' src={e.author.avatar_url} title={e.author.loginname} alt={e.author.loginname} />
-                            </a>
+                            </Link>
                             <div className='cell-left'>
                                 <span className='reply-count'>{e.reply_count}</span>
                                 <span>/</span>
