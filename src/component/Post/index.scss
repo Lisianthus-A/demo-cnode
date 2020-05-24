@@ -96,6 +96,9 @@
             text-decoration: none;
             color: #08c;
           }
+          img {
+            max-width: 95%;
+          }
         }
       }
     }
@@ -160,9 +163,6 @@
             a {
               color: #778087;
               text-decoration: none;
-            }
-            img {
-              max-width: 100%;
             }
           }
         }
