@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/demo-cnode/static/css/main.f737b0c1.chunk.css",
-    "main.js": "/demo-cnode/static/js/main.81f728e4.chunk.js",
-    "main.js.map": "/demo-cnode/static/js/main.81f728e4.chunk.js.map",
+    "main.js": "/demo-cnode/static/js/main.98266c25.chunk.js",
+    "main.js.map": "/demo-cnode/static/js/main.98266c25.chunk.js.map",
     "runtime-main.js": "/demo-cnode/static/js/runtime-main.e8597bab.js",
     "runtime-main.js.map": "/demo-cnode/static/js/runtime-main.e8597bab.js.map",
     "static/js/2.bed94239.chunk.js": "/demo-cnode/static/js/2.bed94239.chunk.js",
     "static/js/2.bed94239.chunk.js.map": "/demo-cnode/static/js/2.bed94239.chunk.js.map",
     "index.html": "/demo-cnode/index.html",
-    "precache-manifest.d33d2e06b2ac630c302b07d473738231.js": "/demo-cnode/precache-manifest.d33d2e06b2ac630c302b07d473738231.js",
+    "precache-manifest.e431ecbf71783303c621dfa8d1643700.js": "/demo-cnode/precache-manifest.e431ecbf71783303c621dfa8d1643700.js",
     "service-worker.js": "/demo-cnode/service-worker.js",
     "static/css/main.f737b0c1.chunk.css.map": "/demo-cnode/static/css/main.f737b0c1.chunk.css.map",
     "static/js/2.bed94239.chunk.js.LICENSE.txt": "/demo-cnode/static/js/2.bed94239.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.e8597bab.js",
     "static/js/2.bed94239.chunk.js",
     "static/css/main.f737b0c1.chunk.css",
-    "static/js/main.81f728e4.chunk.js"
+    "static/js/main.98266c25.chunk.js"
   ]
 }
