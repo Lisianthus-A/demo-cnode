@@ -13,6 +13,12 @@ class Post extends React.Component {
         this.props.getPostDetail(this.props.match.params.id);
         //console.log(this.props);
     }
+
+    handleClick = (id) => {
+        this.props.refreshData();
+        this.props.getPostDetail(id)
+    }
+
     render() {
         if (this.props.data.length === 0 || this.props.userData.length === 0) {
             return <Loading />;
@@ -65,7 +71,7 @@ class Post extends React.Component {
 
                                 {this.props.userData.recent_topics.map(e =>
                                     <div className='item'>
-                                        <Link to={`/post/${e.id}`}>{`${e.title}`}</Link>
+                                        <Link to={`/post/${e.id}`} onClick={() => this.handleClick(e.id)}>{`${e.title}`}</Link>
                                     </div>)}
 
                             </div>
