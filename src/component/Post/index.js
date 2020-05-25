@@ -65,7 +65,7 @@ class Post extends React.Component {
 
                                 {this.props.userData.recent_topics.map(e =>
                                     <div className='item'>
-                                        <Link href={`/post/${e.id}`}>{`${e.title}`}</Link>
+                                        <Link to={`/post/${e.id}`}>{`${e.title}`}</Link>
                                     </div>)}
 
                             </div>
