@@ -11,7 +11,6 @@ class Post extends React.Component {
     componentDidMount = () => {
         this.props.refreshData();
         this.props.getPostDetail(this.props.match.params.id);
-        //console.log(this.props);
     }
 
     handleClick = (id) => {

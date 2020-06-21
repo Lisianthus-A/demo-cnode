@@ -7,9 +7,9 @@ import ListItem from './ListItem';
 
 class Main extends React.Component {
 
-    componentDidMount = async () => {
-        await this.props.refreshData();
-        await this.props.getPost();
+    componentDidMount = () => {
+        this.props.refreshData();
+        this.props.getPost();
     }
 
     //切换标签
@@ -22,23 +22,26 @@ class Main extends React.Component {
     }
 
     //下一页
-    handleNextPage = async () => {
-        await this.props.getNextPage();
-        await this.props.refreshData();
-        await this.props.getPost(this.props.tab, this.props.page);
+    handleNextPage = () => {
+        setTimeout(() => {
+            this.props.getNextPage();
+            this.props.refreshData();
+            this.props.getPost(this.props.tab, this.props.page);
+        }, 0);
     }
 
     //上一页
-    handlePrevPage = async () => {
+    handlePrevPage = () => {
         if (this.props.page !== 1) {
-            await this.props.getPrevPage();
-            await this.props.refreshData();
-            await this.props.getPost(this.props.tab, this.props.page);
+            setTimeout(() => {
+                this.props.getPrevPage();
+                this.props.refreshData();
+                this.props.getPost(this.props.tab, this.props.page);
+            }, 0);
         }
     }
 
     render() {
-        //console.log(this.props);
         return (
             <div className="main">
                 <div className="tab">

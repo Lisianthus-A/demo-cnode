@@ -14,7 +14,6 @@ export const getPost = (tab = 'all', page = 1) => {
         if (tab !== 'all') {
             url += `&tab=${tab}`
         }
-        console.log(url);
         return fetch(url)
             .then(response => response.json())
             .then(result => dispatch({ type: 'GET_POST', data: result.data }))
