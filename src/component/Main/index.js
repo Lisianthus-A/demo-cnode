@@ -1,75 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { mapStateToProps_main, mapDispatchToState_main } from '../../redux/map';
 import ListItem from './ListItem';
 
-class Main extends React.Component {
+const API_URL = 'https://cnodejs.org/api/v1/topics?limit=20';
 
-    componentDidMount = () => {
-        this.props.refreshData();
-        this.props.getPost();
+const Main = props => {
+    const [tab, setTab] = useState('all');  //标签
+    const [page, setPage] = useState(1);  //页数
+    const [data, setData] = useState(null);  //帖子数据
+
+    //获取数据
+    useEffect(() => {
+        const fetchTopicData = async () => {
+            const result = await fetch(`${API_URL}&page=${page}&tab=${tab}`).then(res => res.json());
+            setData(result.data);
+        }
+        
+        setData(null);
+        fetchTopicData();
+    },
+        [tab, page]
+    );
+
+    //设置页数
+    const handleSetPage = command => {
+        if (command === 'next') {
+            setPage(page + 1);
+        } else if (page > 1) {
+            setPage(page - 1);
+        }
     }
 
     //切换标签
-    handleChangeTab = (tab) => {
-        if (this.props.tab !== tab) {
-            this.props.changeTab(tab);
-            this.props.refreshData();
-            this.props.getPost(tab, this.props.page);
-        }
+    const handleChangePage = tab => {
+        setTab(tab);
+        setPage(1);
     }
 
-    //下一页
-    handleNextPage = () => {
-        setTimeout(() => {
-            this.props.getNextPage();
-            this.props.refreshData();
-            this.props.getPost(this.props.tab, this.props.page);
-        }, 0);
-    }
-
-    //上一页
-    handlePrevPage = () => {
-        if (this.props.page !== 1) {
-            setTimeout(() => {
-                this.props.getPrevPage();
-                this.props.refreshData();
-                this.props.getPost(this.props.tab, this.props.page);
-            }, 0);
-        }
-    }
-
-    render() {
-        return (
-            <div className="main">
-                <div className="tab">
-                    <Link
-                        className={`item${this.props.tab === 'all' ? ' high-light' : ''}`}
-                        onClick={() => this.handleChangeTab('all')}>全部</Link>
-                    <Link
-                        className={`item${this.props.tab === 'good' ? ' high-light' : ''}`}
-                        onClick={() => this.handleChangeTab('good')}>精华</Link>
-                    <Link
-                        className={`item${this.props.tab === 'share' ? ' high-light' : ''}`}
-                        onClick={() => this.handleChangeTab('share')}>分享</Link>
-                    <Link
-                        className={`item${this.props.tab === 'ask' ? ' high-light' : ''}`}
-                        onClick={() => this.handleChangeTab('ask')}>问答</Link>
-                    <Link
-                        className={`item${this.props.tab === 'job' ? ' high-light' : ''}`}
-                        onClick={() => this.handleChangeTab('job')}>招聘</Link>
-                </div>
-                {Array.isArray(this.props.data) ? <ListItem data={this.props.data} /> : null}
-                {this.props.data.length !== 0 ?
-                    <div className='page'>
-                        <button onClick={() => this.handlePrevPage()}>{`<<Prev`}</button>
-                        <button onClick={() => this.handleNextPage()}>{`Next>>`}</button>
-                    </div> : null}
+    return (
+        <div className="main">
+            <div className="tab">
+                <span 
+                    className={tab === 'all' ? 'item high-light' : 'item'}
+                    onClick={() => handleChangePage('all')}>全部</span>
+                <span
+                    className={tab === 'good' ? 'item high-light' : 'item'}
+                    onClick={() => handleChangePage('good')}>精华</span>
+                <span
+                    className={tab === 'share' ? 'item high-light' : 'item'}
+                    onClick={() => handleChangePage('share')}>分享</span>
+                <span
+                    className={tab === 'ask' ? 'item high-light' : 'item'}
+                    onClick={() => handleChangePage('ask')}>问答</span>
+                <span
+                    className={tab === 'job' ? 'item high-light' : 'item'}
+                    onClick={() => handleChangePage('job')}>招聘</span>
             </div>
-        );
-    }
+            <ListItem data={data} />
+            {
+                data &&
+                <div className='page'>
+                    <button onClick={() => handleSetPage('prev')}>{`<<Prev`}</button>
+                    <button onClick={() => handleSetPage('next')}>{`Next>>`}</button>
+                </div>
+            }
+        </div>
+    );
 }
 
-export default connect(mapStateToProps_main, mapDispatchToState_main)(Main);
+
+export default Main;

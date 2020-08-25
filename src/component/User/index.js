@@ -1,57 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
-import { mapDispatchToState_user, mapStateToProps_user } from '../../redux/map';
-import { connect } from 'react-redux';
 import Loading from '../Loading';
 import convert from '../../utils/convertTime';
 import { Link } from 'react-router-dom';
 
-class User extends React.Component {
-    componentDidMount() {
-        //console.log(this.props)
-        this.props.refreshData();
-        this.props.getUser(this.props.match.params.name);
-    }
-    render() {
-        if (this.props.userData.length === 0) {
-            return <Loading />;
+const API_URL = 'https://cnodejs.org/api/v1/user/';
+
+const User = props => {
+    const [data, setData] = useState(null);  //用户数据
+    const userName = props.match.params.name;  //路由匹配到的用户名
+
+    //获取数据
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const result = await fetch(`${API_URL}${userName}`).then(res => res.json());
+            setData(result.data);
         }
-        console.log(this.props.userData);
-        return (
-            <div className='user'>
-                <div className='panel'>
-                    <div className='panel-top'>
-                        <header>个人信息</header>
-                        <div className='info'>
-                            <img src={`${this.props.userData.avatar_url}`} title={`${this.props.userData.loginname}`} />
-                            <span>{`${this.props.userData.loginname}`}</span>
-                        </div>
-                        <div className='score'>{`积分：${this.props.userData.score}`}</div>
-                        <div className='github'>GitHub:<a href={`https://github.com/${this.props.userData.githubUsername}`}>{this.props.userData.githubUsername}</a></div>
-                        <div className='register-time'>注册时间：{convert(this.props.userData.create_at)}</div>
+        setData(null);
+        fetchUserData();
+    },
+        [userName]
+    );
+
+    //等待加载数据
+    if (!data) {
+        return <Loading />;
+    }
+
+    return (
+        <div className='user'>
+            <div className='panel'>
+                <div className='panel-top'>
+                    <header>个人信息</header>
+                    <div className='info'>
+                        <img src={`${data.avatar_url}`} title={`${data.loginname}`} alt="" />
+                        <span>{`${data.loginname}`}</span>
                     </div>
-                    <div className='panel-middle'>
-                        <header>最近创建的话题</header>
-                        <div className='list'>
-                            {this.props.userData.recent_replies.map(e =>
-                                <div className='item'>
-                                    <Link to={`/post/${e.id}`}>{e.title}</Link>
-                                </div>)}
-                        </div>
+                    <div className='score'>{`积分：${data.score}`}</div>
+                    <div className='github'>GitHub:<a href={`https://github.com/${data.githubUsername}`}>{data.githubUsername}</a></div>
+                    <div className='register-time'>注册时间：{convert(data.create_at)}</div>
+                </div>
+                <div className='panel-middle'>
+                    <header>最近创建的话题</header>
+                    <div className='list'>
+                        {data.recent_replies.map((e, index) =>
+                            <div className='item' key={index}>
+                                <Link to={`/post/${e.id}`}>{e.title}</Link>
+                            </div>)}
                     </div>
-                    <div className='panel-bottom'>
-                        <header>最近参与的话题</header>
-                        <div className='list'>
-                            {this.props.userData.recent_topics.map(e =>
-                                <div className='item'>
-                                    <Link to={`/post/${e.id}`}>{e.title}</Link>
-                                </div>)}
-                        </div>
+                </div>
+                <div className='panel-bottom'>
+                    <header>最近参与的话题</header>
+                    <div className='list'>
+                        {data.recent_topics.map((e, index) =>
+                            <div className='item' key={index}>
+                                <Link to={`/post/${e.id}`}>{e.title}</Link>
+                            </div>)}
                     </div>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default connect(mapStateToProps_user, mapDispatchToState_user)(User);
+export default User;
